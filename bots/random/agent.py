@@ -1,4 +1,5 @@
 import random
+import time
 
 from client.state import ClientGameRoundState, ClientGameState
 
@@ -9,6 +10,9 @@ class PokerAgent(object):
         pass
 
     def make_action(self, state: ClientGameState, round: ClientGameRoundState) -> str:
+        # HACK to fix concurrency issues with the local server?! Suggested by Dmitry Bageav in Teams.
+        time.sleep(0.5)
+        
         return random.choice(round.get_available_actions())
 
     def on_image(self, image):
